@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +30,13 @@ public class Produto implements Serializable {
 	 * 
 	 * @JoinTable -> nessa anotação que vai definir quem vai ser a tabela que vai
 	 * fazer o muitos pra muitos lá no BD
+	 * 
+	 * 	oque o @JsonBackReference faz,ele diz do outro lado da associação já foram buscados os objetos
+	 * 	então agora eu não busco mais,ele vai omitir a lista de categorias para cada produto
 	 */
+	
+	
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", 
 	joinColumns = @JoinColumn(name = "produto_id"),
