@@ -5,14 +5,18 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * @EmbeddedId significa dizer que ele é um id emutido em um
-	 * tipo auxiliar que no caso é ItemPedidoPK
+	 * @EmbeddedId significa dizer que ele é um id emutido em um tipo auxiliar que
+	 * no caso é ItemPedidoPK Comm o @JsonIgnore faz com que o id não seja
+	 * serealizado
 	 */
+	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -33,6 +37,7 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
