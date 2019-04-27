@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -34,13 +33,9 @@ public class Produto implements Serializable {
 	 * 
 	 * @JoinTable -> nessa anotação que vai definir quem vai ser a tabela que vai
 	 * fazer o muitos pra muitos lá no BD
-	 * 
-	 * oque o @JsonBackReference faz,ele diz do outro lado da associação já foram
-	 * buscados os objetos então agora eu não busco mais,ele vai omitir a lista de
-	 * categorias para cada produto
 	 */
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
@@ -49,7 +44,7 @@ public class Produto implements Serializable {
 	 * Produto também conhece os itens associados a ele
 	 */
 	@JsonIgnore
-	@OneToMany(mappedBy="id.produto")
+	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Produto() {
