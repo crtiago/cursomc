@@ -30,8 +30,8 @@ public class CategoriaResource {
 	 * informações de uma resposta http para o serviço REST,coloca uma interrogação
 	 * no tipo para dizer que pode ser qualquer tipo
 	 */
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria obj = service.buscar(id);
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
+		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
@@ -39,10 +39,23 @@ public class CategoriaResource {
 	 * Método pra receber uma categoria no formato de Jsom e inserir essa categoria
 	 * no banco de dados
 	 */
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+
+	/*
+	 * Método pra atualizar uma categoria no banco de dados
+	 */
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = service.update(obj);
+		
+		return ResponseEntity.noContent().build();
+	}
+
 }

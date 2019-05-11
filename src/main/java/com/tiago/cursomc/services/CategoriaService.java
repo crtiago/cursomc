@@ -24,18 +24,28 @@ public class CategoriaService {
 	/*
 	 * Criar uma operação capaz de buscar uma categoria por código
 	 */
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
 	/*
-	 * Inserir uma categoria utilizando o repositório
+	 * Método para inserir uma categoria utilizando o repositório
 	 */
 	
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+	
+	/*
+	 * Método para atualizar uma categoria 
+	 */
+	
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+	
 }

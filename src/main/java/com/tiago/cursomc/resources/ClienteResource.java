@@ -26,8 +26,8 @@ public class ClienteResource {
 	 * de uma resposta http para o serviço REST,coloca uma interrogação no tipo para dizer que 
 	 * pode ser qualquer tipo
 	 */
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Cliente obj = service.buscar(id);
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
+		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
