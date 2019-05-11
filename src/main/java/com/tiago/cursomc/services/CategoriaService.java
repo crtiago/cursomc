@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.tiago.cursomc.domain.Categoria;
+import com.tiago.cursomc.dto.CategoriaDTO;
 import com.tiago.cursomc.repositories.CategoriaRepository;
 import com.tiago.cursomc.services.execeptions.DataIntegrityException;
 import com.tiago.cursomc.services.execeptions.ObjectNotFoundException;
@@ -82,5 +83,14 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	/*
+	 * Método auxiliar,para que a partir de um objeto CategoriaDTO
+	 * vai ser construido um objeto Categoria
+	 * Intancia uma categoria a partir de um DTO
+	 */
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(),objDto.getNome());
 	}
 }
